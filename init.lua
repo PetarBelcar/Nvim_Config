@@ -153,11 +153,11 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by PaperColor
+    -- Theme inspired by Papercolor
     'NLKNguyen/papercolor-theme',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'papercolor'
+      vim.cmd.colorscheme 'PaperColor'
     end,
   },
 
@@ -168,7 +168,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'papercolor',
+        theme = 'PaperColor',
         component_separators = '|',
         section_separators = '',
       },
@@ -617,6 +617,6 @@ vim.wo.relativenumber = true
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
-vim.cmd [[colorscheme PaperColor]]
-vim.cmd [[set spelllang=en,hr]]
+vim.cmd [[set spelllang=en]]
 vim.cmd [[set spell]]
+vim.cmd [[colorscheme PaperColor]]
