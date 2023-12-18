@@ -223,12 +223,16 @@ require('lazy').setup({
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
   },
-  
+
   {
-    "elentok/format-on-save.nvim"
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function ()
+     vim.g.rustftm_autosave = 1
+    end
   }
 
-
+  
 
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart

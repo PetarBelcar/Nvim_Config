@@ -72,3 +72,6 @@ return {
     })
   end,
 }
+
+vim.cmd [[set spelllang=en,hr]]
+vim.cmd [[set spell]]
