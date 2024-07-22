@@ -240,7 +240,19 @@ require('lazy').setup({
       crates.show()
     end,
   },
-
+  {
+    'mrcjkb/haskell-tools.nvim',
+    version = '^3', -- Recommended
+    ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
+  },
+  {
+    "prettier/vim-prettier"
+  },
+  {
+  "pmizio/typescript-tools.nvim",
+  dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  opts = {},
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -548,6 +560,9 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  jdtls = {
+    'java'
+  }
 }
 
 -- Setup neovim lua configuration
@@ -578,14 +593,14 @@ mason_lspconfig.setup_handlers {
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
-local luasnip = require 'luasnip'
+local _luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
+_luasnip.config.setup {}
 
 cmp.setup {
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      _luasnip.lsp_expand(args.body)
     end,
   },
   completion = {
@@ -604,8 +619,8 @@ cmp.setup {
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
+      elseif _luasnip.expand_or_locally_jumpable() then
+        _luasnip.expand_or_jump()
       else
         fallback()
       end
@@ -613,8 +628,8 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
+      elseif _luasnip.locally_jumpable(-1) then
+        _luasnip.jump(-1)
       else
         fallback()
       end
