@@ -112,7 +112,66 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  -- { 'folke/which-key.nvim', opts = {} },
+  {                     -- Useful plugin to show you pending keybinds.
+    'folke/which-key.nvim',
+    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+    opts = {
+      -- delay between pressing a key and opening which-key (milliseconds)
+      -- this setting is independent of vim.opt.timeoutlen
+
+      delay = 0,
+      icons = {
+        -- set icon mappings to true if you have a Nerd Font
+        mappings = vim.g.have_nerd_font,
+        -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
+        -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
+        keys = vim.g.have_nerd_font and {} or {
+          Up = '<Up> ',
+          Down = '<Down> ',
+          Left = '<Left> ',
+          Right = '<Right> ',
+          C = '<C-…> ',
+          M = '<M-…> ',
+          D = '<D-…> ',
+          S = '<S-…> ',
+          CR = '<CR> ',
+          Esc = '<Esc> ',
+          ScrollWheelDown = '<ScrollWheelDown> ',
+          ScrollWheelUp = '<ScrollWheelUp> ',
+          NL = '<NL> ',
+          BS = '<BS> ',
+          Space = '<Space> ',
+          Tab = '<Tab> ',
+          F1 = '<F1>',
+
+          F2 = '<F2>',
+          F3 = '<F3>',
+          F4 = '<F4>',
+          F5 = '<F5>',
+          F6 = '<F6>',
+          F7 = '<F7>',
+          F8 = '<F8>',
+          F9 = '<F9>',
+          F10 = '<F10>',
+          F11 = '<F11>',
+          F12 = '<F12>',
+        },
+      },
+
+      -- Document existing key chains
+      spec = {
+        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>r', group = '[R]ename' },
+
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+      },
+    },
+  },
 
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -160,7 +219,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',      opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -202,13 +261,13 @@ require('lazy').setup({
   {
     "rust-lang/rust.vim",
     ft = "rust",
-    init = function ()
-     vim.g.rustftm_autosave = 1
+    init = function()
+      vim.g.rustftm_autosave = 1
     end
   },
   {
     'saecki/crates.nvim',
-    ft = {"rust", "toml"},
+    ft = { "rust", "toml" },
     config = function(_, opts)
       local crates = require('crates')
       crates.setup(opts)
@@ -224,11 +283,11 @@ require('lazy').setup({
     "prettier/vim-prettier"
   },
   {
-  "pmizio/typescript-tools.nvim",
-  dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  opts = {},
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
   },
-  { 'echasnovski/mini.nvim', version = false },
+  { 'echasnovski/mini.nvim',      version = false },
   { 'nvim-tree/nvim-web-devicons' },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -243,7 +302,12 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
-}, {})
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+  }
+})
+
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -358,7 +422,7 @@ local function live_grep_git_root()
   local git_root = find_git_root()
   if git_root then
     require('telescope.builtin').live_grep({
-      search_dirs = {git_root},
+      search_dirs = { git_root },
     })
   end
 end
@@ -498,25 +562,6 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
-
--- document existing key chains
-require('which-key').add(
-  {
-    { "<leader>c", group = "[C]ode" },
-    { "<leader>c_", hidden = true },
-    { "<leader>d", group = "[D]ocument" },
-    { "<leader>d_", hidden = true },
-    { "<leader>g", group = "[G]it" },
-    { "<leader>g_", hidden = true },
-    { "<leader>h", group = "More git" },
-    { "<leader>h_", hidden = true },
-    { "<leader>r", group = "[R]ename" },
-    { "<leader>r_", hidden = true },
-    { "<leader>s", group = "[S]earch" },
-    { "<leader>s_", hidden = true },
-    { "<leader>w", group = "[W]orkspace" },
-    { "<leader>w_", hidden = true },
-  })
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
